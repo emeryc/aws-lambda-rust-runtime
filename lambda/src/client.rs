@@ -63,7 +63,7 @@ where
     }
 
     pub(crate) async fn call(&mut self, req: Request<Body>) -> Result<Response<Body>, Err> {
-        debug!("{:#?}", req);
+        // debug!("{:#?}", req);
         let req = self.set_origin(req)?;
         let (parts, body) = req.into_parts();
         let body = Body::from(body);
