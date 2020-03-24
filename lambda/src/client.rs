@@ -10,6 +10,7 @@ use http::{
     HeaderValue, Method, Request, Response, StatusCode, Uri,
 };
 use hyper::Body;
+use log::debug;
 use serde_json::json;
 use std::{
     convert::{TryFrom, TryInto},
@@ -62,6 +63,7 @@ where
     }
 
     pub(crate) async fn call(&mut self, req: Request<Body>) -> Result<Response<Body>, Err> {
+        debug!("{:#?}", req);
         let req = self.set_origin(req)?;
         let (parts, body) = req.into_parts();
         let body = Body::from(body);
@@ -111,7 +113,7 @@ async fn next_event(req: &Request<Body>) -> Result<Response<Body>, Err> {
 
     let rsp = NextEventResponse {
         request_id: "8476a536-e9f4-11e8-9739-2dfe598c3fcd",
-        deadline: 1542409706888,
+        deadline: 1_542_409_706_888,
         arn: "arn:aws:lambda:us-east-2:123456789012:function:custom-runtime",
         trace_id: "Root=1-5bef4de7-ad49b0e87f6ef6c87fc2e700;Parent=9a9197af755a6419",
         body: serde_json::to_vec(&body)?,
