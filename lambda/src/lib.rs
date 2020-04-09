@@ -96,6 +96,11 @@ tokio::task_local! {
     pub static INVOCATION_CTX: types::LambdaCtx;
 }
 
+/// Gives access to the lambda context
+pub fn context() -> LambdaCtx {
+    INVOCATION_CTX.with(|ctx| ctx.clone())
+}
+
 /// A trait describing an asynchronous function `A` to `B.
 pub trait Handler<A, B> {
     /// Errors returned by this handler.
